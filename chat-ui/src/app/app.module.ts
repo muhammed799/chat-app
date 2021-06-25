@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,7 +31,6 @@ import { SettingsComponent } from './settings/settings.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    InfiniteScrollModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
