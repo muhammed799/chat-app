@@ -2,13 +2,13 @@
     <div class="chat-messages-show-container">
       <ul class="chat-messages-show-list" id="chat-ul">
         <div *ngFor ="let msg of message_list">
-          <label class="msg-label"[ngClass]="{'show_left':msg.mine}">{{msg.mine == true ? 'you' : msg.username}}</label>
+          <label class="msg-label"[ngClass]="{'show_left':msg.mine}">{{msg.mine == true ? 'You' : msg.username}}</label>
           <li class="msg-list" [ngClass]="{'show':msg.mine}"> {{msg.message}} </li>
         </div>
       </ul>
     </div>
     <div class="chat-messages-create-container"> 
-      <input class="chat-messages-create-input" type="text" [(ngModel)]="message">
+      <input class="chat-messages-create-input" type="text" [(ngModel)]="message" placeholder="Type a message">
       <button  class="chat-messages-create-button" (click)="SendMessage()"> Send </button>
     </div>
  </div>

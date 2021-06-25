@@ -1,8 +1,9 @@
-<p>userlist works!</p>
 
-<button (click)="getuser()"> Refresh </button>
+
+<button id="refresh" (click)="getuser()"> Refresh </button>
+<p>Users currently available</p>
 <div>
     <div *ngFor ="let user of user_list">
-      <li> {{user}}</li>
+      <li> <a href="#"></a>{{user}}</li>
     </div>
 </div>

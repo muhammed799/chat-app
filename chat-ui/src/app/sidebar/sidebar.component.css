@@ -1,3 +1,18 @@
+
+.nav-item:hover{
+    color: blue;
+}
+
+#sidebarMenu{
+    background-color:#6b5b95;
+}
+span{
+    color: white;
+}
+
+span:hover{
+    color: yellow;
+}
 .actives{
-    color: black;
+    color:black;
 }
