@@ -16,6 +16,8 @@ export class ChatAppComponent implements OnInit {
   message!: string;
   uuidValue;
   message_list :{message:string,username:string,mine:boolean}[] = [];
+  mine : any;
+  //common_list :{message:string,username:string}[] = [];
 
   constructor(private service: AppserviceService) {}
   ngOnInit(): void {
@@ -39,8 +41,19 @@ export class ChatAppComponent implements OnInit {
         user_id:localStorage.getItem('key'),
         user_name:localStorage.getItem('username')
         })
-
     } 
+    //get all messages
+    this.service.getAllMessages({page:1 ,limit:10}).subscribe((res:any)=>{
+      for (var res of res){
+        if(res.username == localStorage.getItem('username')){
+          this.message_list.push({message:res.msg,username: res.username, mine:true})
+        }
+        else{
+          this.message_list.push({message:res.msg,username: res.username, mine:false})
+        }
+      }
+          
+    })
 
     //if socket connection -success
     this.service.socket_connection().subscribe(res => {

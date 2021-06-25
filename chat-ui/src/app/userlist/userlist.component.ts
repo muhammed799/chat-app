@@ -8,12 +8,13 @@ import { AppserviceService } from '../appservice.service';
   styleUrls: ['./userlist.component.css']
 })
 export class UserlistComponent implements OnInit {
-  user_list :string[] = [];
+  user_list :any =[];
   constructor(private service :AppserviceService) { }
 
   ngOnInit(): void {
-     
+     // to emit event
      this.getuser();
+     
     
     
 
