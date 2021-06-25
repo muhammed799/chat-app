@@ -10,6 +10,7 @@ var http = require('http');
 //socket connection
 var socket = require('socket.io');
 var messg_model = require('../models/message.model');
+var user_model = require('../models/users.model');
 
 
 
@@ -87,6 +88,7 @@ io.on('connection', (socket) => {
 });
 
 function addUser(username){
+  //to userlist for showing online users
   if(!userlist.has(username)){
     userlist.set(username)
   }
@@ -100,8 +102,8 @@ function removeUser(username){
 
 function save_to_db(data){
 
-  let dat = new messg_model(data);
-  dat.save().then((res)=>{
+  let msg_dat = new messg_model(data);
+  msg_dat.save().then((res)=>{
     console.log(res)
   })
 
