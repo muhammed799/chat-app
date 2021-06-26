@@ -1,16 +1,42 @@
 <div class="chat-messages">
-    <div class="chat-messages-show-container">
-      <ul class="chat-messages-show-list" id="chat-ul">
-        <div *ngFor ="let msg of message_list">
-          <label class="msg-label"[ngClass]="{'show_left':msg.mine}">{{msg.mine == true ? 'You' : msg.username}}</label>
-          <li class="msg-list" [ngClass]="{'show':msg.mine}"> {{msg.message}} </li>
+  <div class="chat-messages-show-container">
+    <div class="chat-messages">
+      <div class="chat-messages-show-container">
+        <div class="chat-messages-show-list" >
+
+          <div class="container content">
+            <div class="row ">
+              <div class="col-xl-12 col-lg-6 col-md-8 col-sm-12 col-12   test">
+                <div class="card">
+                  <div class="card-header">Chat</div>
+                  <div class="card-body height3">
+                    <div *ngFor="let msg of message_list">
+                      <ul class="chat-list">
+                        <li [ngClass]="{'in':msg.mine==false,'out':msg.mine==true}">
+                          <div class="chat-body">
+                            <div class="chat-message">
+                              <h5>{{msg.mine == true ? 'You' : msg.username}}</h5>
+                              <p>{{msg.message}}</p>
+                            </div>
+                          </div>
+                        </li>
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
-      </ul>
+      </div>
+
     </div>
-    <div class="chat-messages-create-container"> 
-      <input class="chat-messages-create-input" type="text" [(ngModel)]="message" placeholder="Type a message">
-      <button  class="chat-messages-create-button" (click)="SendMessage()"> Send </button>
-    </div>
- </div>
- 
-  
+  </div>
+  <div class="chat-messages-create-container" style="text-align: center;">
+    <input ng-keyup="$event.keyCode == 13 ? SendMessage(): null" class="chat-messages-create-input" type="text" [(ngModel)]="message" placeholder="Type a message">
+    <button class="chat-messages-create-button"  (click)="SendMessage()"> Send </button>
+  </div>
+</div>
