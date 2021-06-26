@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+.dasboard-container{
+    height: 80vh;
+    width: 80vh;
+    margin-left: 25vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: blueviolet;
+    border-radius:10px ;
+}
+
+label{
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+}
+
+.dashboard input{
+    padding: 12px; 
+    margin: 8px ;
+    width:27vw;
+    border-radius: 10px;
+    border: none;
+}
+
+.btn input{
+    color: white;
+    background-color: teal;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    width: 150px;
+    height: 60px;
+    margin-left:39vw;
+    margin-top: 20px;
+
+}
+
+.btn input:hover{
+    background-color: brown;
+    
+}
