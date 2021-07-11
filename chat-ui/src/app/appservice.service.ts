@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { observable, Observable } from 'rxjs';
 import { io } from 'socket.io-client';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 
@@ -15,7 +15,8 @@ export class AppserviceService {
   user_id;
   user_name;
 
-  constructor() { }
+  apiURL = 'http://localhost:4000';
+  constructor(private http: HttpClient) { }
 
   connect_socket(params) {
     this.socket = io(this.address, {
@@ -55,7 +56,22 @@ export class AppserviceService {
     });
   }
 
+  //fn to call server to get all messages
 
+  // HttpClient API get() method => Fetch messages
+  getAllMessages(params){
+    return  new Observable(observer=>{
+
+      this.http.post(this.apiURL + '/message',params)
+            .subscribe(res=>{
+               observer.next(res)
+               observer.complete();
+            })
+
+
+    })
+
+  }
   
 
 }

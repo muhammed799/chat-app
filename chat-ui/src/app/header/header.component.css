@@ -1,0 +1,19 @@
+ /* Modify the background color */
+          
+ .navbar-custom {
+   background-color:#6b5b95;
+}
+
+
+.nav-item a{
+        color: white;
+}
+
+.nav-item a:hover{
+    color: lightseagreen;
+}
+
+.navbar-brand{
+    color: #fff;
+    
+}
