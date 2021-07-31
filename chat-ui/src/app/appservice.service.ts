@@ -72,6 +72,16 @@ export class AppserviceService {
     })
 
   }
+
+  Delete_Message(id){
+     return new Observable(observer =>{
+        this.http.post(this.apiURL+ '/message/delete',{id : id})
+               .subscribe(res =>{
+                 observer.next(res)
+                 observer.complete()
+               })
+     })
+  }
   
 
 }

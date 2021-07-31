@@ -17,6 +17,9 @@
                             <div class="chat-message">
                               <h5>{{msg.mine == true ? 'You' : msg.username}}</h5>
                               <p>{{msg.message}}</p>
+                              <span *ngIf = "msg.mine ==true"><a  role="button" (click)="del_functn(msg.id)"   >Delete</a> |
+                                <a role='button'  >Edit</a></span>
+                              
                             </div>
                           </div>
                         </li>
@@ -36,7 +39,7 @@
     </div>
   </div>
   <div class="chat-messages-create-container" style="text-align: center;">
-    <input ng-keyup="$event.keyCode == 13 ? SendMessage(): null" class="chat-messages-create-input" type="text" [(ngModel)]="message" placeholder="Type a message">
+    <input  class="chat-messages-create-input" type="text" [(ngModel)]="message" placeholder="Type a message">
     <button class="chat-messages-create-button"  (click)="SendMessage()"> Send </button>
   </div>
 </div>

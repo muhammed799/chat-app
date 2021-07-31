@@ -65,10 +65,12 @@ io.on('connection', (socket) => {
   
   socket.emit("emitted",'connected');
   
-  socket.on('message', (data)=>{
-    save_to_db(data);
-    console.log(data)
+  socket.on('message', async(data)=>{        
+    console.log("tst",data)
+    val = await save_to_db(data);
+    console.log("b",val)
     socket.broadcast.emit('broadcast',data);
+    socket.emit('id_vl',val)
   })
 
   
@@ -99,12 +101,23 @@ function removeUser(username){
   }
 }
 
-function save_to_db(data){
-
+async function save_to_db(data){
+  var id ;
   let msg_dat = new messg_model(data);
-  msg_dat.save().then((res)=>{
-    console.log(res)
-  })
+  await msg_dat.save()
+      .then((res)=>{
+          //console.log(res)
+          //console.log(res._id)
+          id = res._id
+          
+         
+          
+      })
+      console.log(id)
+      return id 
+      
+  //console.log("D",id)
+ // return id
 
 }
 
