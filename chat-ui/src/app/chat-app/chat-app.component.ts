@@ -15,11 +15,11 @@ export class ChatAppComponent implements OnInit {
 
   message!: string;
   uuidValue;
-  message_list :{message:string,username:string,mine:boolean}[] = [];
-  mine : any;
+  message_list: { message: string, username: string, mine: boolean, id: string }[] = [];
+  mine: any;
   //common_list :{message:string,username:string}[] = [];
 
-  constructor(private service: AppserviceService) {}
+  constructor(private service: AppserviceService) { }
   ngOnInit(): void {
     //check if id exist
 
@@ -27,8 +27,8 @@ export class ChatAppComponent implements OnInit {
       console.log('already available')
       this.service.connect_socket(
         {
-        user_id:localStorage.getItem('key'),
-        user_name:localStorage.getItem('username')
+          user_id: localStorage.getItem('key'),
+          user_name: localStorage.getItem('username')
         })
 
     }
@@ -38,11 +38,11 @@ export class ChatAppComponent implements OnInit {
       localStorage.setItem('key', this.generateUUID());
       this.service.connect_socket(
         {
-        user_id:localStorage.getItem('key'),
-        user_name:localStorage.getItem('username')
+          user_id: localStorage.getItem('key'),
+          user_name: localStorage.getItem('username')
         })
 
-    } 
+    }
 
     //if socket connection -success
     this.service.socket_connection().subscribe(res => {
@@ -51,38 +51,60 @@ export class ChatAppComponent implements OnInit {
     //recieve msg from other clients
     this.service.broadcast_message().subscribe(res => {
       if (res) {
-        
-          this.message_list.push({message:res['msg'],username: res['username'], mine:false})
-        
-       
+
+        this.message_list.push({ message: res['msg'], username: res['username'], mine: false, id: res['_id'] })
+
+
       }
     });
 
     //get all messages
-    this.service.getAllMessages({page:1 ,limit:10}).subscribe((res:any)=>{
-      for (var res of res){
-        if(res.username == localStorage.getItem('username')){
-          this.message_list.push({message:res.msg,username: res.username, mine:true})
+    this.service.getAllMessages({ page: 1, limit: 10 }).subscribe((res: any) => {
+      for (var res of res) {
+        if (res.username == localStorage.getItem('username')) {
+          this.message_list.push({ message: res.msg, username: res.username, mine: true, id: res._id })
         }
-        else{
-          this.message_list.push({message:res.msg,username: res.username, mine:false})
+        else {
+          this.message_list.push({ message: res.msg, username: res.username, mine: false, id: res._id })
         }
       }
       this.message_list.reverse();
 
     });
 
-   
+
 
   };
 
   //used to send the message to server to broadcast to all users except this
-  SendMessage() {
+  async SendMessage() {
     let user = localStorage.getItem('username');
-    this.service.socket.emit('message', { msg: this.message,username: user });
-    this.message_list.push({message:this.message,username: user, mine:true})
-    this.message = '';
+    await this.service.socket.emit('message', { msg: this.message, username: user });
+    await this.service.socket.on('id_vl', (res) => {
+      // console.log(res)
+      this.message_list.push({ message: this.message, username: user, mine: true, id: res })
+      this.message = '';
+      var arr = []
+      this.message_list.forEach(e => {
+        if (e.message) {
+          arr.push(e)
+        }
+      })
+      this.message_list = arr
+      //console.log(this.message_list)
+
+    })
+
   };
+
+  //edit the messages 
+  del_functn(id) {
+    this.service.Delete_Message(id).subscribe(res => {
+      location.reload()
+      alert(res['res'])
+        
+    })
+  }
 
   generateUUID() {
     this.uuidValue = uuidv4();

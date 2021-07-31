@@ -19,4 +19,15 @@ router.post('/', async function(req, res, next) {
   }
 });
 
+
+router.post('/delete', async function(req, res, next) {
+  try {
+    let id = req.body.id;
+    await message_model.deleteOne({_id : id})
+    res.send({'res' : 'Message Deleted '})
+  } catch (error) {
+    res.sendStatus(500).send(error.message);
+  }
+});
+
 module.exports = router;
